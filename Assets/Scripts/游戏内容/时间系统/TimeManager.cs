@@ -12,7 +12,7 @@ public class TimeManager : MonoBehaviour
     private int day = 1;
 
     /* 事件：天刚增加时广播 */
-    public event Action<int> OnNewDay;
+    public event Action OnNewDay;
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class TimeManager : MonoBehaviour
             timer = 0;
             day++;
             RefreshUI();
-            OnNewDay?.Invoke(day);   // 广播
+            OnNewDay?.Invoke();   // 广播
         }
     }
 

@@ -8,12 +8,12 @@ public class PlaceManager : MonoBehaviour
 
     private void OnEnable()
     {
-        TimeManager.Instance.OnNewDay += _ => Refresh();
+        TimeManager.Instance.OnNewDay += Refresh;
     }
 
     private void OnDisable()
     {
-        TimeManager.Instance.OnNewDay -= _ => Refresh();
+        TimeManager.Instance.OnNewDay -= Refresh;
     }
 
     public void Refresh()

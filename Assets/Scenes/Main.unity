@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -756,8 +756,8 @@ MonoBehaviour:
   place: 0
   isBug: 0
   closeness_EXP: 0
-  mood_EXP: 0
   placeManager: {fileID: 0}
+  closeness_EXP_Add: 10
 --- !u!1 &380999623
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,8 +922,8 @@ MonoBehaviour:
   place: 0
   isBug: 0
   closeness_EXP: 0
-  mood_EXP: 0
   placeManager: {fileID: 0}
+  closeness_EXP_Add: 10
 --- !u!1 &381174750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,8 +1745,8 @@ MonoBehaviour:
   place: 0
   isBug: 0
   closeness_EXP: 0
-  mood_EXP: 0
   placeManager: {fileID: 0}
+  closeness_EXP_Add: 10
 --- !u!1 &866638743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,8 +1942,8 @@ MonoBehaviour:
   place: 0
   isBug: 0
   closeness_EXP: 0
-  mood_EXP: 0
   placeManager: {fileID: 0}
+  closeness_EXP_Add: 10
 --- !u!1 &1136873551
 GameObject:
   m_ObjectHideFlags: 0

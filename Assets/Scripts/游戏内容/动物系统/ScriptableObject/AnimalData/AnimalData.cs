@@ -16,5 +16,6 @@ public class AnimalData : ScriptableObject
     public float mood;
     public bool isHungry;
     public bool isThirsty;
+    public bool isPetted;
     
 }
