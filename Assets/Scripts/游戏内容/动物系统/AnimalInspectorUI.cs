@@ -18,28 +18,25 @@ public class AnimalInspectorUI : MonoBehaviour
         rootPanel.SetActive(false);
     }
 
-    public void Show(AnimalData data)
+    public void Show(AnimalInfo info)
     {
         rootPanel.SetActive(true);
-        nameTxt.text = data.animalName;
         
-        ageTxt.text = $"stay with you for: {data.age} days";
+        ageTxt.text = $"stay with you for: {info.age} days";
         
-        closenessTxt.text = $"Closeness: {data.closeness:F1}";
+        closenessTxt.text = $"Closeness: {info.closeness:F1}";
 
-        happyTxt.text = $"Mood: {data.mood:F0}";
+        happyTxt.text = $"Mood: {info.mood:F0}";
 
-        if (data.isHungry)
+        if (info.isHungry)
             hungryTxt.text = "Not eating";
         else
             hungryTxt.text = "Eating";
 
-        if (data.isThirsty)
+        if (info.isThirsty)
             thirstyTxt.text = "Not drinking";
         else
             thirstyTxt.text = "Drinking";
-
-            iconImg.sprite = data.icon;
     }
 
     public void Close() => rootPanel.SetActive(false);

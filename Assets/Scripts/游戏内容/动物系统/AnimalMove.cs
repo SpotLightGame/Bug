@@ -14,7 +14,13 @@ public class AnimalMove : MonoBehaviour
     public float interval = 15f;
 
     private Vector3 targetPos; // 目标位置
-    private bool  canMove = true; // 能否移动
+    private bool canMove = true; // 能否移动
+    
+    private void Awake()
+    {
+        areaL = GameObject.FindGameObjectWithTag("AreaL").transform;
+        areaR = GameObject.FindGameObjectWithTag("AreaR").transform;
+    }
 
     private void Start()
     {

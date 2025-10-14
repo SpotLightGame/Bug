@@ -6,18 +6,24 @@ using UnityEngine.EventSystems;
 
 public class AnimalInfo : MonoBehaviour, IPointerClickHandler
 {
-    public AnimalData data;
-    [SerializeField] private AnimalPlace place;
-    [Header("动态数据")]
     public bool isBug;
+
+    [Header("动态数据")]
     [SerializeField] private float closeness_EXP;
 
     [Header("每日状态")]
+    public int age;
+    public float closeness;
+    public float mood;
+    public bool isHungry;
+    public bool isThirsty;
+    public bool isPetted;
     private bool isInRightPlace;
     private bool isBugAnimalAround;
 
     [Header("关联组件")]
     public PlaceManager placeManager;
+    [SerializeField] private AnimalPlace place;
 
     [Header("数据")]
     [SerializeField] private float closeness_EXP_Add = 10f;
@@ -25,6 +31,7 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
+        placeManager = GameObject.FindGameObjectWithTag("Place").GetComponent<PlaceManager>();
         Refresh();
     }
 
@@ -47,38 +54,34 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     // 每日刷新状态
     public void Refresh()
     {
-        placeManager = gameObject.GetComponentInParent<PlaceManager>();
-        data.mood = 50f;
-        if (data != null)
-        {
-            data.isHungry = true;
-            data.isThirsty = true;
-        }
+        mood = 50f;
+        isHungry = true;
+        isThirsty = true;
 
         if (placeManager.gameObject.tag == place.ToString())
         {
             isInRightPlace = true;
-            data.mood += 10f;
+            mood += 10f;
         }
         else
         {
             isInRightPlace = false;
-            data.mood -= 10f;
+            mood -= 10f;
         }
 
 
         if (placeManager.hasBugAnimal)
         {
             isBugAnimalAround = true;
-            data.mood -= 10f;
+            mood -= 10f;
         }
         else
         {
             isBugAnimalAround = false;
-            data.mood += 10f;
+            mood += 10f;
         }
 
-        data.isPetted = false;
+        isPetted = false;
         
 
 
@@ -89,17 +92,16 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     // 点击事件，触摸优先，触摸完后再显示信息面板
     public void OnPointerClick(PointerEventData _)
     {
-        Debug.Log($"Click detected on {data.animalName}");
-        if (!data.isPetted)
+        if (!isPetted)
         {
             Debug.Log("You petted the animal!");
-            data.isPetted = true;
+            isPetted = true;
             closeness_EXP += 10f;
             
         }
         else
         {
-            AnimalInspectorUI.I.Show(data);
+            AnimalInspectorUI.I.Show(this);
         }
 
     }

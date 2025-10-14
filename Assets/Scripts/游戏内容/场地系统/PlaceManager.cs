@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlaceManager : MonoBehaviour
 {
+    public AnimalPlace placeType;
     public bool hasBugAnimal;
 
     private void OnEnable()
