@@ -29,12 +29,39 @@ public class TimeManager : MonoBehaviour
 
     private void Update()
     {
+        UpdateDay();
+    }
+
+    private void RefreshUI() => timeTxt.text = $"{year} 年 {season} 季 \n {day} 日";
+
+    //暂停功能
+    public void Pause()
+    {
+        isPause = !isPause;
+    }
+    public void UpdateDay()
+    {
         if (isPause) return;
         timer += Time.deltaTime;
         if (timer >= dayLength)
         {
             timer = 0;
-            day++;
+
+            if (day < 28)
+            {
+                day++;
+            }
+            else
+            {
+                day = 1;
+                season++;
+                if (season > 4)
+                {
+                    season = 1;
+                    year++;
+                }
+            }
+            
             RefreshUI();
             OnNewDay?.Invoke();   // 广播
             if(day % 7 == 0)
@@ -42,13 +69,5 @@ public class TimeManager : MonoBehaviour
                 ShowDay?.Invoke();
             }
         }
-    }
-
-    private void RefreshUI() => timeTxt.text = $"{year} 年 \n {season} 季 \n {day} 日";
-
-    //暂停功能
-    public void Pause()
-    {
-        isPause = !isPause;
     }
 }

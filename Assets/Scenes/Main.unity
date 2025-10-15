@@ -2310,8 +2310,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 45eafec1db54cac4788176a43d3dd9ad, type: 2}
+  m_sharedMaterial: {fileID: 3324186707424110032, guid: 45eafec1db54cac4788176a43d3dd9ad, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2771,6 +2771,8 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 5624918535536985696, guid: 0cdd5b02154cebb49b04789b221107a8, type: 2}
     value: {fileID: 640283036}
+  - key: {fileID: -3437884602516332724, guid: 0cdd5b02154cebb49b04789b221107a8, type: 2}
+    value: {fileID: 1033263750}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &1033263752
@@ -2834,7 +2836,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &1033263755
 RectTransform:
@@ -4074,6 +4076,22 @@ PrefabInstance:
     - target: {fileID: 2166483285231737153, guid: fc1781f702e7b4d469e8a4a8367b50a6, type: 3}
       propertyPath: m_Name
       value: Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643476393475784051, guid: fc1781f702e7b4d469e8a4a8367b50a6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4bd323e95cebcec498b378f45d5da43f, type: 3}
+    - target: {fileID: 4643476393475784051, guid: fc1781f702e7b4d469e8a4a8367b50a6, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643476393475784051, guid: fc1781f702e7b4d469e8a4a8367b50a6, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643476393475784051, guid: fc1781f702e7b4d469e8a4a8367b50a6, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5336528067568451451, guid: fc1781f702e7b4d469e8a4a8367b50a6, type: 3}
       propertyPath: m_LocalScale.x
