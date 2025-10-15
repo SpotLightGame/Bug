@@ -17,7 +17,7 @@ public class ResourcesManager : MonoBehaviour
     {
         UpdateResources();
     }
-    public void UpdateResources()
+    private void UpdateResources()
     {
         goldText.text = "Gold: " + gold.ToString();
     }

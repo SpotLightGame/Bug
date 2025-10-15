@@ -19,6 +19,7 @@ public class FadeManager : MonoBehaviour
     {
         StopAllCoroutines();
         StartCoroutine(FadeTo(0f));
+        FadeImage.SetActive(false);
     }
 
     public void FadeOut()
@@ -41,6 +42,6 @@ public class FadeManager : MonoBehaviour
         }
         
         canvasGroup.alpha = target;
-        FadeImage.SetActive(false);
+        //FadeImage.SetActive(false);
     }
 }

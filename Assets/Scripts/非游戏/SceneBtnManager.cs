@@ -13,6 +13,11 @@ public class SceneBtnManager : MonoBehaviour
         StartCoroutine(Load(sceneName));
     }
 
+    public void EnterScene(String sceneName)
+    {
+        fadeManager.FadeIn();
+    }
+
     private IEnumerator Load(String sceneName)
     {
 

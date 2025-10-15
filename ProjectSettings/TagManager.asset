@@ -7,6 +7,8 @@ TagManager:
   - AreaL
   - AreaR
   - Place
+  - TimeManager
+  - ResourcesManager
   layers:
   - Default
   - TransparentFX
@@ -41,6 +43,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Far
+    uniqueID: 643115207
+    locked: 0
+  - name: MidFar
+    uniqueID: 2670993843
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: MidClose
+    uniqueID: 2877343035
+    locked: 0
+  - name: Close
+    uniqueID: 191307797
     locked: 0
