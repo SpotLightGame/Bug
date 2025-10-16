@@ -21,11 +21,36 @@ public class AnimalInspectorUI : MonoBehaviour
     public void Show(AnimalInfo info)
     {
         rootPanel.SetActive(true);
-        
-        ageTxt.text = $"stay with you for: {info.age} days";
-        
-        closenessTxt.text = $"Closeness: {info.closeness:F1}";
 
+        ageTxt.text = $"已陪伴你: {info.age} 天";
+
+        //亲密值
+        if (info.closenessLevel == 0)
+        {
+            closenessTxt.text = $"对你感到陌生";
+        }
+        else if (info.closenessLevel == 1)
+        {
+            closenessTxt.text = $"1";
+        }
+        else if (info.closenessLevel == 2)
+        {
+            closenessTxt.text = $"2";
+        }
+        else if (info.closenessLevel == 3)
+        {
+            closenessTxt.text = $"3";
+        }
+        else if (info.closenessLevel == 4)
+        {
+            closenessTxt.text = $"4";
+        }
+        else
+        {
+            closenessTxt.text = $"5";
+        }
+        
+        //心情
         happyTxt.text = $"Mood: {info.mood:F0}";
 
         if (info.isHungry)

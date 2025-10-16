@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneBtnManager : MonoBehaviour
 {
+    [Header("各类界面")]
+    public GameObject shopPanel;
+
+
     [SerializeField] private FadeManager fadeManager;
 
     public void LoadScene(String sceneName)
@@ -22,7 +26,7 @@ public class SceneBtnManager : MonoBehaviour
     {
 
         yield return new WaitForSeconds(fadeManager.fadeTime); //等待淡化
-        
+
         if (sceneName == "0")
         {
 #if UNITY_EDITOR
@@ -36,4 +40,10 @@ public class SceneBtnManager : MonoBehaviour
             SceneManager.LoadScene(sceneName);
         }
     }
+    
+    public void ControlShopPanel()
+    {
+        shopPanel.SetActive(!shopPanel.activeSelf);
+    }
+
 }

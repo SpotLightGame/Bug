@@ -9,6 +9,7 @@ TagManager:
   - Place
   - TimeManager
   - ResourcesManager
+  - AnimalProduct
   layers:
   - Default
   - TransparentFX
