@@ -7,10 +7,14 @@ using UnityEngine.EventSystems;
 
 public class AnimalInfo : MonoBehaviour, IPointerClickHandler
 {
+
+    [Header("Bug 相关")]
     public bool isBug;
-    [Header("Bug相关")]
-    //bug贴图
-    public float num;
+    public bool showBug;
+    [SerializeField] private AnimalType type;
+    [SerializeField] private BattleInfoRecord_SO bugDB;
+    [Range(0f, 1f)]
+    [SerializeField] private float bugProbability = 0.1f;
 
     [Header("动态数据")]
     [SerializeField] private float closeness_EXP;
@@ -33,14 +37,14 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     [SerializeField] private AnimalPlace place;
     [SerializeField] private AnimalType animalType;
 
-    [Header("数值")]
+    [Header("数据")]
+    //[SerializeField] public string animalID;
     [SerializeField] private float closeness_EXP_Add = 10f;
     [SerializeField] private float showValue = 100f;
 
     [Header("产品掉落")]
     [SerializeField]private GameObject[] productDropPrefab;
 
-    // Start is called before the first frame update
     void Start()
     {
         placeManager = GameObject.FindGameObjectWithTag("Place").GetComponent<PlaceManager>();
@@ -48,7 +52,7 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
         Refresh();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
@@ -72,10 +76,12 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     // 每日刷新状态
     public void Refresh()
     {
+        BugChange();
+
         //若前一天心情较高，则增加亲密值
         if (mood >= 90f)
         {
-            closeness_EXP += 10f;
+            closeness_EXP += closeness_EXP_Add;
         }
         
         //根据前一天状况决定新一天心情
@@ -118,7 +124,7 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
         //抚摸
         isPetted = false;
 
-        BugChange();
+        
         ClosenessCheck();
         Produce();
         
@@ -130,12 +136,18 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     // 点击事件，触摸优先，触摸完后再显示信息面板
     public void OnPointerClick(PointerEventData _)
     {
+        if (showBug)
+        {
+            // 记录进运行时数据
+            BattlePre.Instance.SetEnemy(type, bugDB);
+            // 进战斗场景
+            UnityEngine.SceneManagement.SceneManager.LoadScene("BattleField");
+        }
         if (!isPetted)
         {
             Debug.Log("You petted the animal!");
             isPetted = true;
-            closeness_EXP += 10f;
-
+            closeness_EXP += closeness_EXP_Add;
         }
         else
         {
@@ -148,16 +160,11 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     public void BugChange()
     {
         // bug化
-        if (!isBug)
+        if (isBug) return;                    // 已经是 bug 就不用再判
+        if (UnityEngine.Random.value < bugProbability)
         {
-            num = (int)UnityEngine.Random.Range(0f, 100f);
-            if (num % 10 == 0)
-            {
-                isBug = true;
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(255F, 0F, 255F);
-            }
-            else
-                return;
+            isBug = true;
+            GetComponent<SpriteRenderer>().color = Color.magenta; // 亮洋红
         }
     }
 

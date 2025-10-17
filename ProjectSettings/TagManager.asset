@@ -10,6 +10,8 @@ TagManager:
   - TimeManager
   - ResourcesManager
   - AnimalProduct
+  - Boss
+  - Fence
   layers:
   - Default
   - TransparentFX

@@ -11,4 +11,5 @@ public class ProductDrop : MonoBehaviour
         FindObjectOfType<ResourcesManager>().AddGold(productValue);
         Destroy(gameObject);
     }
+    
 }

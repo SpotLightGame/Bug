@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
+    [Header("唯一ID")]
+    //public AnimalIDGeneratorSO idGenerator;
     public GameObject animalPrefab;
     public Transform spawnPoint;
     public float price;
@@ -36,5 +38,8 @@ public class ShopManager : MonoBehaviour
         resMgr.CostGold(price);
         GameObject animal = Instantiate(animalPrefab, spawnPoint.position, Quaternion.identity);
         animal.transform.SetParent(animalsParent, worldPositionStays: true);
+
+        // AnimalInfo info = animal.GetComponent<AnimalInfo>();
+        // info.animalID = idGenerator.GetNextID("shop");
     }
 }
