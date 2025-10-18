@@ -9,7 +9,6 @@ public class AnimalInspectorUI : MonoBehaviour
     public static AnimalInspectorUI I;   // 单例
 
     [SerializeField] TMP_Text nameTxt, ageTxt, closenessTxt, happyTxt, hungryTxt, thirstyTxt;
-    [SerializeField] Image      iconImg;
     [SerializeField] GameObject rootPanel; // 整个面板
 
     void Awake()
@@ -54,15 +53,20 @@ public class AnimalInspectorUI : MonoBehaviour
         happyTxt.text = $"Mood: {info.mood:F0}";
 
         if (info.isHungry)
-            hungryTxt.text = "Not eating";
+            hungryTxt.text = "未进食";
         else
-            hungryTxt.text = "Eating";
+            hungryTxt.text = "已进食";
 
         if (info.isThirsty)
-            thirstyTxt.text = "Not drinking";
+            thirstyTxt.text = "未饮水";
         else
-            thirstyTxt.text = "Drinking";
+            thirstyTxt.text = "已饮水";
     }
 
-    public void Close() => rootPanel.SetActive(false);
+    public void Close()
+    {
+        rootPanel.SetActive(false);
+        TimeManager.Instance.Pause(false);
+    }
+    
 }

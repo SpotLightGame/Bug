@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5761605695682871608}
   - component: {fileID: 6680512725910728365}
   - component: {fileID: 890707627831017260}
-  - component: {fileID: 1145089894775851067}
+  - component: {fileID: -7509251908363417911}
   m_Layer: 0
-  m_Name: "\u725B"
+  m_Name: "\u7F8A"
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a70890a167b80ff4f8e3f2334eda2197, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b8c2ed06c80f1aa42a46cb5d08c0ef6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBug: 0
   showBug: 0
-  type: 0
+  type: 1
   bugDB: {fileID: 11400000, guid: 0c3c4659630cfdb4383cf123a6a7bf71, type: 2}
   bugProbability: 0.1
   closeness_EXP: 0
@@ -182,7 +182,7 @@ MonoBehaviour:
   productDropPrefab: []
   heartPrefab: {fileID: 0}
   heartFadeTime: 1
---- !u!95 &1145089894775851067
+--- !u!95 &-7509251908363417911
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -192,7 +192,7 @@ Animator:
   m_GameObject: {fileID: 2166483285231737153}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c1adb70f11066be43b8f1715da0bfece, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

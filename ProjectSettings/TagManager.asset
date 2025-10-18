@@ -12,6 +12,7 @@ TagManager:
   - AnimalProduct
   - Boss
   - Fence
+  - Animal
   layers:
   - Default
   - TransparentFX

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bugs:
   - type: 0
-    sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    sprite: {fileID: 21300000, guid: 66cc545e9f6148b48b8b74a982a63e64, type: 3}
   - type: 1
-    sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    sprite: {fileID: 21300000, guid: e46ff9aabac1290419d89be472a1a4dc, type: 3}
   - type: 2
-    sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    sprite: {fileID: 21300000, guid: f613eb7fc2b816043b47b9b9c9e57082, type: 3}

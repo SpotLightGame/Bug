@@ -12,6 +12,8 @@ public class AnimalMove : MonoBehaviour
 
     [Header("间隔时间（秒）")]
     public float interval = 15f;
+    [Header("动画")]
+    private Animator anim;
 
     private Vector3 targetPos; // 目标位置
     private bool canMove = true; // 能否移动
@@ -20,6 +22,7 @@ public class AnimalMove : MonoBehaviour
     {
         areaL = GameObject.FindGameObjectWithTag("AreaL").transform;
         areaR = GameObject.FindGameObjectWithTag("AreaR").transform;
+        anim = GetComponent<Animator>();
     }
 
     private void Start()
@@ -32,10 +35,28 @@ public class AnimalMove : MonoBehaviour
 
     private void Update()
     {
+        
+        float dist = Vector3.Distance(transform.position, targetPos);
+
+        anim.SetBool("isMoving", dist > 0.01f);
+
+        Vector3 dir = (targetPos - transform.position).normalized;
+        if (dir.x != 0)
+        {
+            float originalScaleX = Mathf.Abs(transform.localScale.x); // 保持原始大小
+            float newSign = -Mathf.Sign(dir.x); // 反转方向
+            transform.localScale = new Vector3(newSign * originalScaleX, transform.localScale.y, transform.localScale.z);
+        }
+
         transform.position = Vector3.MoveTowards(
                                 transform.position,
                                 targetPos,
                                 speed * Time.deltaTime);
+
+        if (!canMove && dist < 0.01f)
+        {
+            canMove = true;
+        }
 
         if (!canMove && Vector3.Distance(transform.position, targetPos) < 0.01f)
         {

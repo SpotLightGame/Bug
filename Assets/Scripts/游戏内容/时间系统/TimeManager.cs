@@ -34,11 +34,12 @@ public class TimeManager : MonoBehaviour
 
     private void RefreshUI() => timeTxt.text = $"{year} 年 {season} 季 \n {day} 日";
 
-    //暂停功能
-    public void Pause()
+    // 暂停功能
+    public void Pause(bool comfirm)
     {
-        isPause = !isPause;
+        isPause = comfirm;
     }
+
     public void UpdateDay()
     {
         if (isPause) return;

@@ -1,10 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossManager : MonoBehaviour
 {
+    [Header("回归")]
+    public SceneField sceneTo;
     [Header("数据记录")]
     public BattleInfoRecord_SO battleInfoRecord;
     [Header("Boss信息")]
@@ -20,12 +21,16 @@ public class BossManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health <= 0)
+        if (health <= 0)
         {
             Debug.Log("Boss死亡");
-            Destroy(gameObject);
+            StartCoroutine(LoadScene());
+            
+            
         }
     }
+    
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -44,4 +49,10 @@ public class BossManager : MonoBehaviour
     }
     
 
+    IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(sceneTo.SceneName);
+        Destroy(gameObject);
+    }
 }

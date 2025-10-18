@@ -482,7 +482,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Main
+          m_StringArgument: Grassland
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &688908503
@@ -535,6 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b117e2d443c39449e395a61c325f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopPanel: {fileID: 0}
   fadeManager: {fileID: 0}
 --- !u!1 &950004383
 GameObject:

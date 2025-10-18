@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class AnimalInfo : MonoBehaviour, IPointerClickHandler
 {
@@ -35,7 +33,6 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     public PlaceManager placeManager;
     public ResourcesManager resourcesManager;
     [SerializeField] private AnimalPlace place;
-    [SerializeField] private AnimalType animalType;
 
     [Header("数据")]
     //[SerializeField] public string animalID;
@@ -43,7 +40,12 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     [SerializeField] private float showValue = 100f;
 
     [Header("产品掉落")]
-    [SerializeField]private GameObject[] productDropPrefab;
+    [SerializeField] private GameObject[] productDropPrefab;
+    
+    [Header("首次抚摸特效")]
+    public GameObject heartPrefab;
+    public float heartFadeTime = 1f;
+    
 
     void Start()
     {
@@ -77,6 +79,7 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     public void Refresh()
     {
         BugChange();
+        SpriteChange();
 
         //若前一天心情较高，则增加亲密值
         if (mood >= 90f)
@@ -140,18 +143,22 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
         {
             // 记录进运行时数据
             BattlePre.Instance.SetEnemy(type, bugDB);
+            TimeManager.Instance.Pause(true);
             // 进战斗场景
-            UnityEngine.SceneManagement.SceneManager.LoadScene("BattleField");
+            SceneManager.LoadScene("BattleField");
+            return;
         }
         if (!isPetted)
         {
             Debug.Log("You petted the animal!");
             isPetted = true;
             closeness_EXP += closeness_EXP_Add;
+            SpawnHeart();
         }
         else
         {
             AnimalInspectorUI.I.Show(this);
+            TimeManager.Instance.Pause(true);
         }
 
     }
@@ -164,7 +171,7 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
         if (UnityEngine.Random.value < bugProbability)
         {
             isBug = true;
-            GetComponent<SpriteRenderer>().color = Color.magenta; // 亮洋红
+            
         }
     }
 
@@ -177,28 +184,32 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     public void Produce()
     {
         if (productDropPrefab == null || productDropPrefab.Length == 0) return;
-        int num = (int)UnityEngine.Random.Range(0f, 100f);
-        ProductDrop drop = null;
+        if(closenessLevel >= 1f)
+        {
+            int num = (int)UnityEngine.Random.Range(0f, 100f);
+            ProductDrop drop = null;
 
-        if (num < 70)
-        {
-            drop = Instantiate(productDropPrefab[0], transform.position, Quaternion.identity).GetComponent<ProductDrop>();
-        }
-        else if (num < 95 && productDropPrefab.Length > 1)
-        {
-            if (productDropPrefab[1] == null) return;
-            drop = Instantiate(productDropPrefab[1], transform.position, Quaternion.identity).GetComponent<ProductDrop>(); ;
-        }
-        else if (productDropPrefab.Length > 2)
-        {
-            if (productDropPrefab[2] == null) return;
-            drop = Instantiate(productDropPrefab[2], transform.position, Quaternion.identity).GetComponent<ProductDrop>(); ;
-        }
+            if (num < 70)
+            {
+                drop = Instantiate(productDropPrefab[0], transform.position, Quaternion.identity).GetComponent<ProductDrop>();
+            }
+            else if (num < 95 && productDropPrefab.Length > 1)
+            {
+                if (productDropPrefab[1] == null) return;
+                drop = Instantiate(productDropPrefab[1], transform.position, Quaternion.identity).GetComponent<ProductDrop>(); ;
+            }
+            else if (productDropPrefab.Length > 2)
+            {
+                if (productDropPrefab[2] == null) return;
+                drop = Instantiate(productDropPrefab[2], transform.position, Quaternion.identity).GetComponent<ProductDrop>(); ;
+            }
 
-        if (isPetted)
-        {
-            drop.productValue *= 2;
+            if (isPetted)
+            {
+                drop.productValue *= 2;
+            }
         }
+        
 
     }
 
@@ -230,6 +241,15 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
             closenessLevel = 5f;
         }
     }
-    
 
+    public void SpawnHeart()
+    {
+
+    }
+    
+    public void SpriteChange()
+    {
+        if (!showBug) return;
+        GetComponent<SpriteRenderer>().color = Color.magenta; // 亮洋红
+    }
 }

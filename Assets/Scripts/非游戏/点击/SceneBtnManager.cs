@@ -11,6 +11,10 @@ public class SceneBtnManager : MonoBehaviour
 
     [SerializeField] private FadeManager fadeManager;
 
+    private void Start()
+    {
+        shopPanel.SetActive(false);
+    }
     public void LoadScene(String sceneName)
     {
         fadeManager.FadeOut();
@@ -40,10 +44,20 @@ public class SceneBtnManager : MonoBehaviour
             SceneManager.LoadScene(sceneName);
         }
     }
-    
+
     public void ControlShopPanel()
     {
         shopPanel.SetActive(!shopPanel.activeSelf);
     }
 
+    public void ShowBug()
+    {
+        foreach (GameObject animal in GameObject.FindGameObjectsWithTag("Animal"))
+        {
+            if (animal.GetComponent<AnimalInfo>().isBug)
+            {
+                animal.GetComponent<AnimalInfo>().showBug = true;
+            }
+        }
+    }
 }

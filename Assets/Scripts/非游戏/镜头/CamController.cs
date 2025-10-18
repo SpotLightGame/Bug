@@ -12,7 +12,18 @@ public class CamController : MonoBehaviour
     Vector3 targetPos;
     Vector2 lastTouch;
 
-    void Awake() => cam = GetComponent<Camera>();
+    void Awake()
+    {
+        // 强制竖屏
+        Screen.autorotateToPortrait          = true;
+        Screen.autorotateToPortraitUpsideDown= false;
+        Screen.autorotateToLandscapeLeft     = false;
+        Screen.autorotateToLandscapeRight    = false;
+        Screen.orientation = ScreenOrientation.Portrait;
+        
+        cam = GetComponent<Camera>();
+
+    }
     void Start() => targetPos = transform.position;
 
     void Update()
