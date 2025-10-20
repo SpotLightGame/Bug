@@ -24,6 +24,7 @@ public class FadeManager : MonoBehaviour
 
     public void FadeOut()
     {
+        FadeImage.SetActive(true);
         StopAllCoroutines();
         StartCoroutine(FadeTo(1f));
     }

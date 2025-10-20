@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 
 //动物产品
 public enum AnimalProduct

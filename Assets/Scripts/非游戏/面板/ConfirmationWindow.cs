@@ -1,11 +1,12 @@
 // ConfirmationWindow.cs
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ConfirmationWindow : MonoBehaviour
 {
     public static ConfirmationWindow I;   // 单例
-    [SerializeField] Text infoText;       // 提示文字
+    [SerializeField] TMP_Text infoText;       // 提示文字
     [SerializeField] Button yesBtn;       // 确定按钮
     [SerializeField] Button noBtn;        // 取消按钮
 

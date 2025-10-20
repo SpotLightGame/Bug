@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 
 public class AnimalInfo : MonoBehaviour, IPointerClickHandler
@@ -9,15 +12,19 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     [Header("Bug 相关")]
     public bool isBug;
     public bool showBug;
-    [SerializeField] private AnimalType type;
+    public AnimalType type;
+
+    public Material bugMaterial;
+    private Material normalMaterial;
     [SerializeField] private BattleInfoRecord_SO bugDB;
     [Range(0f, 1f)]
     [SerializeField] private float bugProbability = 0.1f;
 
     [Header("动态数据")]
-    [SerializeField] private float closeness_EXP;
+    public float closeness_EXP;
 
     [Header("每日状态")]
+    private int state;
 
     public int age;
     public float closenessLevel;
@@ -32,10 +39,11 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     [Header("关联组件")]
     public PlaceManager placeManager;
     public ResourcesManager resourcesManager;
+    public BattleManager battleManager;
     [SerializeField] private AnimalPlace place;
 
     [Header("数据")]
-    //[SerializeField] public string animalID;
+    [SerializeField] public string animalID;
     [SerializeField] private float closeness_EXP_Add = 10f;
     [SerializeField] private float showValue = 100f;
 
@@ -44,27 +52,34 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
     
     [Header("首次抚摸特效")]
     public GameObject heartPrefab;
-    public float heartFadeTime = 1f;
     
 
     void Start()
     {
-        placeManager = GameObject.FindGameObjectWithTag("Place").GetComponent<PlaceManager>();
-        resourcesManager = GameObject.FindGameObjectWithTag("ResourcesManager").GetComponent<ResourcesManager>();
+        normalMaterial = GetComponent<SpriteRenderer>().material;
+        placeManager = GameObject.FindGameObjectWithTag("Place")?.GetComponent<PlaceManager>();
+        resourcesManager = GameObject.FindGameObjectWithTag("ResourcesManager")?.GetComponent<ResourcesManager>();
+        battleManager = GameObject.Find("BattleManager")?.GetComponent<BattleManager>();
+
+
         Refresh();
+        Debug.Log($"动物初始化: ID={animalID}, Type={type}, Position={transform.position}");
     }
 
     
     void Update()
     {
-        
+        SpriteChange();
     }
 
     private void OnEnable()
     {
+        Debug.Log($"动物激活: ID={animalID}");
         TimeManager.Instance.OnNewDay += Refresh;
 
         TimeManager.Instance.ShowDay += Show;
+
+        AnimalInfoRecord.Instance.BattleFinish += AfterBattleRefresh;
         
     }
 
@@ -73,13 +88,16 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
         TimeManager.Instance.OnNewDay -= Refresh;
 
         TimeManager.Instance.ShowDay -= Show;
+
+        AnimalInfoRecord.Instance.BattleFinish -= AfterBattleRefresh;
     }
 
     // 每日刷新状态
     public void Refresh()
     {
         BugChange();
-        SpriteChange();
+        state = 0;
+        
 
         //若前一天心情较高，则增加亲密值
         if (mood >= 90f)
@@ -101,7 +119,7 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
         isThirsty = true;
 
         //是否适配场地
-        if (placeManager.gameObject.tag == place.ToString())
+        if (placeManager.placeType.ToString() == place.ToString())
         {
             isInRightPlace = true;
             mood += 10f;
@@ -142,10 +160,16 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
         if (showBug)
         {
             // 记录进运行时数据
-            BattlePre.Instance.SetEnemy(type, bugDB);
+            BattlePre.Instance.SetEnemy(type, bugDB.GetBugSprite(type));
             TimeManager.Instance.Pause(true);
-            // 进战斗场景
-            SceneManager.LoadScene("BattleField");
+
+            AnimalInfoRecord.Instance.state = state;
+            AnimalInfoRecord.Instance.isBug = isBug;
+            AnimalInfoRecord.Instance.showBug = showBug;
+
+            battleManager.battleObj.SetActive(true);
+            battleManager.SwitchToBattleCamera();
+            
             return;
         }
         if (!isPetted)
@@ -153,7 +177,7 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
             Debug.Log("You petted the animal!");
             isPetted = true;
             closeness_EXP += closeness_EXP_Add;
-            SpawnHeart();
+            StartCoroutine(SpawnHeart());
         }
         else
         {
@@ -242,14 +266,76 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SpawnHeart()
+    
+
+
+    public void SpriteChange()
     {
+        if (!showBug)
+        {
+            GetComponent<SpriteRenderer>().material = normalMaterial;
+            return;
+        }
+        
+        GetComponent<SpriteRenderer>().material = bugMaterial;
+    }
+
+    private void AfterBattleRefresh()
+    {
+        state = AnimalInfoRecord.Instance.state;
+
+        if (state == 0) return;
+        if (state == 1)
+        {
+            this.isBug = false;
+            this.showBug = false;
+            this.state = 0;
+        }
+        else if (state == 2)
+        {
+            Destroy(this.gameObject);
+        }
 
     }
     
-    public void SpriteChange()
+    IEnumerator SpawnHeart()
     {
-        if (!showBug) return;
-        GetComponent<SpriteRenderer>().color = Color.magenta; // 亮洋红
+        // 1. 按亲密度给颜色（0-1 范围）
+        Color[] colors =
+        {
+            Color.white,
+            Color.green,
+            Color.cyan,
+            Color.magenta,
+            Color.red,
+            new Color(1f, 0.84f, 0f) // 金色
+        };
+        SpriteRenderer sr = heartPrefab.GetComponent<SpriteRenderer>();
+        sr.color = colors[Mathf.Clamp((int)closenessLevel, 0, 5)];
+
+        // 2. 生成
+        GameObject heart = Instantiate(heartPrefab, transform.position, Quaternion.identity);
+
+        // 3. 保证渲染层与动物一致
+        sr.sortingLayerID = GetComponent<SpriteRenderer>().sortingLayerID;
+        sr.sortingOrder   = GetComponent<SpriteRenderer>().sortingOrder + 1;
+
+        // 4. 上升 + 渐隐
+        float t = 0f;
+        Vector3 startPos = heart.transform.position;
+        Color startColor = sr.color;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime;
+            float p = t; // 线性进度
+
+            heart.transform.position = startPos + Vector3.up * (0.5f * p);
+            sr.color = new Color(startColor.r, startColor.g, startColor.b, 1f - p);
+
+            yield return null;
+        }
+
+        Destroy(heart);
     }
 }

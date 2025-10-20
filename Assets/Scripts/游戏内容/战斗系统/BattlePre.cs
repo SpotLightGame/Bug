@@ -6,8 +6,8 @@ public class BattlePre : MonoBehaviour
 {
     public static BattlePre Instance { get; private set; }
 
-    public AnimalType   lastSelectedType; // 点击动物时写入
-    public Sprite       lastBugSprite;    // 进入战斗前读取
+    public AnimalType lastSelectedType;
+    public Sprite lastBugSprite;
 
     void Awake()
     {
@@ -16,10 +16,9 @@ public class BattlePre : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // 点击动物时调用
-    public void SetEnemy(AnimalType type, BattleInfoRecord_SO db)
+    public void SetEnemy(AnimalType type, Sprite bugSprite)
     {
         lastSelectedType = type;
-        lastBugSprite    = db.GetBugSprite(type);
+        lastBugSprite = bugSprite;
     }
 }

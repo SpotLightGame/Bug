@@ -11,8 +11,8 @@ TagManager:
   - ResourcesManager
   - AnimalProduct
   - Boss
-  - Fence
   - Animal
+  - Heart
   layers:
   - Default
   - TransparentFX
@@ -20,7 +20,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Fence
   - 
   - 
   - 

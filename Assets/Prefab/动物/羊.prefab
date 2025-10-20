@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5336528067568451451}
   - component: {fileID: 4643476393475784051}
+  - component: {fileID: -4100285485661963576}
   - component: {fileID: 5761605695682871608}
   - component: {fileID: 6680512725910728365}
   - component: {fileID: 890707627831017260}
@@ -88,6 +89,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-4100285485661963576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2166483285231737153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9acfb1eb8991e3440b71edd8ddbdbdc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punch: 0.3
+  duration: 0.4
 --- !u!114 &5761605695682871608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +179,7 @@ MonoBehaviour:
   isBug: 0
   showBug: 0
   type: 1
+  bugMaterial: {fileID: 2100000, guid: d778fb34b3ed9b04ba97d2105dbb3434, type: 2}
   bugDB: {fileID: 11400000, guid: 0c3c4659630cfdb4383cf123a6a7bf71, type: 2}
   bugProbability: 0.1
   closeness_EXP: 0
@@ -176,12 +192,13 @@ MonoBehaviour:
   closeness: 0
   placeManager: {fileID: 0}
   resourcesManager: {fileID: 0}
+  battleManager: {fileID: 0}
   place: 0
+  animalID: 
   closeness_EXP_Add: 10
   showValue: 100
   productDropPrefab: []
-  heartPrefab: {fileID: 0}
-  heartFadeTime: 1
+  heartPrefab: {fileID: 8571588398525449534, guid: 8e33d0401ce2e5d4db3f0e98bed2edf8, type: 3}
 --- !u!95 &-7509251908363417911
 Animator:
   serializedVersion: 5

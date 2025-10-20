@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShopManager : MonoBehaviour
 {
     [Header("唯一ID")]
-    //public AnimalIDGeneratorSO idGenerator;
+    public AnimalIDGeneratorSO idGenerator; // 确保在 Inspector 中分配这个引用
     public GameObject animalPrefab;
     public Transform spawnPoint;
     public float price;
@@ -17,9 +17,15 @@ public class ShopManager : MonoBehaviour
     void Start()
     {
         resMgr = FindObjectOfType<ResourcesManager>();
-        spawnPoint = GameObject.FindGameObjectWithTag("Place").transform;
+        if (spawnPoint == null)
+            spawnPoint = GameObject.FindGameObjectWithTag("Place").transform;
+            
+        // 验证 ID 生成器
+        if (idGenerator == null)
+        {
+            Debug.LogError("ShopManager: idGenerator 未分配！");
+        }
     }
-
 
     public void OnClickBuy()
     {
@@ -39,7 +45,16 @@ public class ShopManager : MonoBehaviour
         GameObject animal = Instantiate(animalPrefab, spawnPoint.position, Quaternion.identity);
         animal.transform.SetParent(animalsParent, worldPositionStays: true);
 
-        // AnimalInfo info = animal.GetComponent<AnimalInfo>();
-        // info.animalID = idGenerator.GetNextID("shop");
+        AnimalInfo info = animal.GetComponent<AnimalInfo>();
+        if (info != null && idGenerator != null)
+        {
+            // 使用动物类型生成ID
+            info.animalID = idGenerator.GetNextID(info.type);
+            Debug.Log($"购买动物成功: ID={info.animalID}, Type={info.type}");
+        }
+        else
+        {
+            Debug.LogError("动物预制体缺少 AnimalInfo 组件或 ID 生成器未分配！");
+        }
     }
 }
