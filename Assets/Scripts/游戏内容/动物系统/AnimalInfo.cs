@@ -167,8 +167,7 @@ public class AnimalInfo : MonoBehaviour, IPointerClickHandler
             AnimalInfoRecord.Instance.isBug = isBug;
             AnimalInfoRecord.Instance.showBug = showBug;
 
-            battleManager.battleObj.SetActive(true);
-            battleManager.SwitchToBattleCamera();
+            battleManager.StartBattle();
             
             return;
         }

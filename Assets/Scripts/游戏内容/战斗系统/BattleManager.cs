@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    private GameObject mainPanel;
     [Header("相机")]
     public GameObject mainCam;
     public GameObject battleCam;
@@ -11,6 +12,7 @@ public class BattleManager : MonoBehaviour
     public BossManager boss;
     [Header("战斗组件")]
     public GameObject battleObj;
+    private GameObject battleObjInstance;
 
     [Header("点击伤害")]
     public float damagePerClick = 10f;
@@ -23,10 +25,10 @@ public class BattleManager : MonoBehaviour
 
     void Awake()
     {
-        battleObj.SetActive(false);
         battleCam.SetActive(false);
         // 自动找 Boss
-        if (boss == null) boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossManager>();
+        if (boss == null) return;
+        if (mainPanel == null) return;
     }
 
     void Update()
@@ -41,6 +43,7 @@ public class BattleManager : MonoBehaviour
                 StartCoroutine(HitBoss());
             }
         }
+
     }
 
     IEnumerator HitBoss()
@@ -61,7 +64,8 @@ public class BattleManager : MonoBehaviour
     IEnumerator LoadAfter(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        battleObj.SetActive(false);
+        Destroy(battleObjInstance);
+        mainPanel.SetActive(true);
         SwitchToMainCamera();
     }
 
@@ -79,7 +83,10 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle()
     {
-        battleObj.SetActive(true);
+        battleObjInstance = Instantiate(battleObj, Vector3.zero, Quaternion.identity);
+        boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossManager>();
+        mainPanel = GameObject.FindGameObjectWithTag("MainPanel");
+        mainPanel.SetActive(false);
         SwitchToBattleCamera();
     }
 
