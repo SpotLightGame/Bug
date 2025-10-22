@@ -15,6 +15,7 @@ public class TimeManager : MonoBehaviour
 
     /* 事件：天刚增加时广播 */
     public event Action OnNewDay;
+    public event Action OnMidDay;      // 日中（300秒）
     public event Action ShowDay;
     [Header("状态")]
     public bool isPause;
@@ -49,6 +50,13 @@ public class TimeManager : MonoBehaviour
     {
         if (isPause) return;
         timer += Time.deltaTime;
+
+        //检测日中
+        if (timer >= dayLength / 2 && timer - Time.deltaTime < dayLength / 2)
+        {
+            OnMidDay?.Invoke();
+        }//检测
+
         if (timer >= dayLength)
         {
             timer = 0;
