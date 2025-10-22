@@ -15,5 +15,5 @@ MonoBehaviour:
   collectionID: 0
   collectionName: "\u725B\u5976"
   description: "\u5C0F\u725B\u6700\u7231\u4E4B\u7269"
-  unlockedIcon: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  lockedIcon: {fileID: 21300000, guid: f23e12e4a25de5e4baf808e4a222167c, type: 3}
+  unlockedIcon: {fileID: 21300000, guid: f23e12e4a25de5e4baf808e4a222167c, type: 3}
+  lockedIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}

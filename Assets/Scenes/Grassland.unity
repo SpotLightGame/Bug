@@ -3017,7 +3017,7 @@ MonoBehaviour:
   rewardText: {fileID: 1543480917}
   rewardIconImage: {fileID: 618555472}
   goldIcon: {fileID: 21300000, guid: 16d5eadf0ecf42f4ba4425307c6ebdc7, type: 3}
-  collectibleIcon: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  collectibleIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   rewardIconText: {fileID: 1365829554}
   sheepPrefab: {fileID: 1741264620}
   sheepIcon: {fileID: 21300000, guid: b8c2ed06c80f1aa42a46cb5d08c0ef6c, type: 3}
@@ -5327,6 +5327,10 @@ MonoBehaviour:
   allCollections:
   - {fileID: 11400000, guid: 80179a7f88163a64b8a5887940ba967d, type: 2}
   - {fileID: 11400000, guid: 7949a288d8145ca449e07b462cbb956b, type: 2}
+  - {fileID: 11400000, guid: e6edf2cf25098f742af9a8e3f1c20f17, type: 2}
+  - {fileID: 11400000, guid: 83fb09dfdb75310459ab47d25d732c11, type: 2}
+  - {fileID: 11400000, guid: 52ea7c423a87ce04fb9a7b81b41314cf, type: 2}
+  - {fileID: 11400000, guid: e031fd18d7ffd8943a93712377473be1, type: 2}
 --- !u!224 &743073496
 RectTransform:
   m_ObjectHideFlags: 0

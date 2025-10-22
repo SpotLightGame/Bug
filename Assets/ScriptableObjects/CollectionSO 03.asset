@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c256039985a40f4a904d310a34b7a2c, type: 3}
-  m_Name: CollectionSO 02
+  m_Name: CollectionSO 03
   m_EditorClassIdentifier: 
-  collectionID: 1
-  collectionName: "\u5C0F\u7F8A\u81EA\u753B\u50CF"
-  description: "\u5C0F\u7F8A\u4EB2\u624B\u4E3A\u81EA\u5DF1\u753B\u7684"
-  unlockedIcon: {fileID: 21300000, guid: e6dc8ec8499dbb84bb53f0eb41985d8d, type: 3}
+  collectionID: 3
+  collectionName: 3
+  description: 3
+  unlockedIcon: {fileID: 21300000, guid: 66cc545e9f6148b48b8b74a982a63e64, type: 3}
   lockedIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
